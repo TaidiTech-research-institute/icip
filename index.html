@@ -1,8 +1,28 @@
 <!DOCTYPE html>
-<html><head title="Motoko docs"><meta charset="UTF-8"/><link href="styles.css" rel="stylesheet"/></head><div class="index-container"><h1 class="index-header">Index of modules</h1><ul class="index-listing"><li class="index-item"><a class="index-item-link" href="Library.html">Library</a><div class="index-item-comment"><p>A shiny new library</p>
-<p>Make it easy and fun to use your new library by including some module specific documentation here.
-It's always a good idea to include a minimal working example:</p>
-<pre class="motoko"><code class="motoko">import LibraryTemplate &quot;mo:library-template/Library&quot;;
+<html><head title="Motoko docs"><meta charset="UTF-8"/><link href="styles.css" rel="stylesheet"/></head><div class="index-container"><h1 class="index-header">Index of modules</h1><ul class="index-listing"><li class="index-item"><a class="index-item-link" href="ICIP1.html">ICIP1</a><div class="index-item-comment"><p>Module translated from <a href="https://github.com/sailfish-app/proposals/blob/master/icip-1.md">ICIP-1</a> code.
+Added some refined classes and functions.</p>
+<p>The ICIP-1 token interface
+Include this library in your code to impliment a token in a canister.</p>
+<p>Pseudo code:</p>
+<pre class="motoko"><code class="motoko">import ICIP1 &quot;mo:icip/ICIP-1&quot;;
 
-assert(LibraryTemplate.isPalindrome(&quot;anna&quot;));
-assert(not LibraryTemplate.isPalindrome(&quot;christoph&quot;));</code></pre></div></li></ul></div></html>
+actor token {
+  public query func getBalance(requests: [ICIP1.BalanceRequest]): async ICIP1.BalanceResponse {
+    let balance: Nat = 0: Nat;
+    #ok([balance]);
+  };
+  public query func getMetadata(tokenIds: [ICIP1.TokenId]): async ICIP1.MetadataResponse {
+    let metadata: ICIP1.Metadata = &quot;icip-token&quot;;
+    #ok([metadata]);
+  };
+  public shared func transfer(requests: [ICIP1.TransferRequest]): async ICIP1.TransferResponse {
+    #ok();
+  };
+  public shared func updateOperator(requests: [ICIP1.OperatorRequest]): async ICIP1.OperatorResponse {
+    #ok();
+  };
+  public query func isAuthorized(requests: [ICIP1.IsAuthorizedRequest]): async ICIP1.IsAuthorizedResponse {
+    [true]
+  };
+};</code></pre><p>Go to ICIPTest.mo to find how to implement this package to your code.</p>
+</div></li></ul></div></html>
