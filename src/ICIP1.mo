@@ -34,7 +34,6 @@ import Hash "mo:base/Hash";
 import Nat32 "mo:base/Nat32";
 import Principal "mo:base/Principal";
 import Result "mo:base/Result";
-import Word32 "mo:base/Word32";
 
 module {
   // A user can be any principal or canister
@@ -48,7 +47,7 @@ module {
 
   // Details for a token, eg. name, symbol, description, decimals.
   // Metadata format TBD, possible option is JSON blob
-  public type Metadata = Text; 
+  public type Metadata = Text;
   public type MetadataResponse = Result.Result<[Metadata], {
     #InvalidToken: TokenId;
   }>;
@@ -108,7 +107,7 @@ module {
   // class of TokenId
   public class ITokenId (id: TokenId, id2: TokenId) {
     public func equal() : Bool { id == id2 };
-    public func hash() : Hash.Hash { Word32.fromNat(Nat32.toNat(id)) };
+    public func hash() : Hash.Hash { id };
   };
 
   // Uniquely identifies a token
@@ -126,7 +125,7 @@ module {
     };
     // Hash the canister and xor with tokenId
     public func hash() : Hash.Hash {
-      Principal.hash(Principal.fromActor(ti.canister)) ^ Word32.fromNat(Nat32.toNat(ti.tokenId))
+      Principal.hash(Principal.fromActor(ti.canister)) ^ ti.tokenId
     };
     // Join the principal and id with a '_'
     public func toText() : Text {

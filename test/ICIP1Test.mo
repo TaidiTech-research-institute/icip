@@ -4,7 +4,6 @@ import S "mo:matchers/Suite";
 import T "mo:matchers/Testable";
 import Debug "mo:base/Debug";
 import Array "mo:base/Array";
-import Word32 "mo:base/Word32";
 import Principal "mo:base/Principal";
 import Blob "mo:base/Blob";
 import Prim "mo:prim";
@@ -46,11 +45,11 @@ let IUser = S.suite("IUser", do {
   let user1Hash = Blob.hash (Prim.blobOfPrincipal(user1));
   let user2Hash = Blob.hash (Prim.blobOfPrincipal(user2));
   // ok
-  tests := Array.append(tests, [S.test("ok", Word32.equal(user.hash(user1), user1Hash), M.equals(T.bool(true)))]);
-  tests := Array.append(tests, [S.test("ok", Word32.equal(user.hash(user2), user2Hash), M.equals(T.bool(true)))]);
+  tests := Array.append(tests, [S.test("ok", Nat32.equal(user.hash(user1), user1Hash), M.equals(T.bool(true)))]);
+  tests := Array.append(tests, [S.test("ok", Nat32.equal(user.hash(user2), user2Hash), M.equals(T.bool(true)))]);
   // err
-  tests := Array.append(tests, [S.test("err", Word32.equal(user.hash(user1), user2Hash), M.equals(T.bool(false)))]);
-  tests := Array.append(tests, [S.test("err", Word32.equal(user.hash(user2), user1Hash), M.equals(T.bool(false)))]);
+  tests := Array.append(tests, [S.test("err", Nat32.equal(user.hash(user1), user2Hash), M.equals(T.bool(false)))]);
+  tests := Array.append(tests, [S.test("err", Nat32.equal(user.hash(user2), user1Hash), M.equals(T.bool(false)))]);
   tests
 });
 
@@ -59,12 +58,12 @@ let ITokenId = S.suite("ITokenId", do {
   var tests : [S.Suite] = [];
   let tokenId1 = ICIP1.ITokenId(1, 1);
   tests := Array.append(tests, [S.test("ok", tokenId1.equal(), M.equals(T.bool(true)))]);
-  tests := Array.append(tests, [S.test("ok", Word32.equal(tokenId1.hash(), Word32.fromNat(1: Nat)), M.equals(T.bool(true)))]);
-  tests := Array.append(tests, [S.test("err", Word32.equal(tokenId1.hash(), Word32.fromNat(2: Nat)), M.equals(T.bool(false)))]);
+  tests := Array.append(tests, [S.test("ok", Nat32.equal(tokenId1.hash(), 1: Nat32), M.equals(T.bool(true)))]);
+  tests := Array.append(tests, [S.test("err", Nat32.equal(tokenId1.hash(), 2: Nat32), M.equals(T.bool(false)))]);
   let tokenId2 = ICIP1.ITokenId(2, 1);
   tests := Array.append(tests, [S.test("err", tokenId2.equal(), M.equals(T.bool(false)))]);
-  tests := Array.append(tests, [S.test("ok", Word32.equal(tokenId2.hash(), Word32.fromNat(2: Nat)), M.equals(T.bool(true)))]);
-  tests := Array.append(tests, [S.test("err", Word32.equal(tokenId2.hash(), Word32.fromNat(1: Nat)), M.equals(T.bool(false)))]);
+  tests := Array.append(tests, [S.test("ok", Nat32.equal(tokenId2.hash(), 2: Nat32), M.equals(T.bool(true)))]);
+  tests := Array.append(tests, [S.test("err", Nat32.equal(tokenId2.hash(), 1: Nat32), M.equals(T.bool(false)))]);
   tests
 });
 
@@ -127,18 +126,18 @@ let ITokenIdentifier = S.suite("ITokenIdentifier", do {
   // ITokenIdentifier
   let tokenIdentifierTest1 = ICIP1.ITokenIdentifier(tokenIdentifier1, tokenIdentifier2);
   tests := Array.append(tests, [S.test("err", tokenIdentifierTest1.equal(), M.equals(T.bool(false)))]);
-  let hash = Principal.hash(Principal.fromActor(tokenIdentifier1.canister)) ^ Word32.fromNat(Nat32.toNat(tokenIdentifier1.tokenId));
-  tests := Array.append(tests, [S.test("ok", Word32.equal(tokenIdentifierTest1.hash(), hash), M.equals(T.bool(true)))]);
-  tests := Array.append(tests, [S.test("err", Word32.equal(tokenIdentifierTest1.hash(), Word32.fromNat(2: Nat)), M.equals(T.bool(false)))]);
+  let hash = Principal.hash(Principal.fromActor(tokenIdentifier1.canister)) ^ tokenIdentifier1.tokenId;
+  tests := Array.append(tests, [S.test("ok", Nat32.equal(tokenIdentifierTest1.hash(), hash), M.equals(T.bool(true)))]);
+  tests := Array.append(tests, [S.test("err", Nat32.equal(tokenIdentifierTest1.hash(), 2: Nat32), M.equals(T.bool(false)))]);
   let text = Principal.toText(Principal.fromActor(tokenIdentifier1.canister)) # "_" # Nat32.toText(tokenIdentifier1.tokenId);
   tests := Array.append(tests, [S.test("ok", Text.equal(tokenIdentifierTest1.toText(), text), M.equals(T.bool(true)))]);
   tests := Array.append(tests, [S.test("err", Text.equal(tokenIdentifierTest1.toText(), "text"), M.equals(T.bool(false)))]);
 
   let tokenIdentifierTest2 = ICIP1.ITokenIdentifier(tokenIdentifier2, tokenIdentifier2);
   tests := Array.append(tests, [S.test("ok", tokenIdentifierTest2.equal(), M.equals(T.bool(true)))]);
-  let hash2 = Principal.hash(Principal.fromActor(tokenIdentifier2.canister)) ^ Word32.fromNat(Nat32.toNat(tokenIdentifier2.tokenId));
-  tests := Array.append(tests, [S.test("ok", Word32.equal(tokenIdentifierTest2.hash(), hash2), M.equals(T.bool(true)))]);
-  tests := Array.append(tests, [S.test("err", Word32.equal(tokenIdentifierTest2.hash(), Word32.fromNat(1: Nat)), M.equals(T.bool(false)))]);
+  let hash2 = Principal.hash(Principal.fromActor(tokenIdentifier2.canister)) ^ tokenIdentifier2.tokenId;
+  tests := Array.append(tests, [S.test("ok", Nat32.equal(tokenIdentifierTest2.hash(), hash2), M.equals(T.bool(true)))]);
+  tests := Array.append(tests, [S.test("err", Nat32.equal(tokenIdentifierTest2.hash(), 1: Nat32), M.equals(T.bool(false)))]);
   let text2 = Principal.toText(Principal.fromActor(tokenIdentifier2.canister)) # "_" # Nat32.toText(tokenIdentifier2.tokenId);
   tests := Array.append(tests, [S.test("ok", Text.equal(tokenIdentifierTest2.toText(), text2), M.equals(T.bool(true)))]);
   tests := Array.append(tests, [S.test("err", Text.equal(tokenIdentifierTest2.toText(), "text2"), M.equals(T.bool(false)))]);
