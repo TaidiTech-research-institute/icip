@@ -1,9 +1,10 @@
 # icip
 
 Internet Computer Improvement Protocol (ICIP).
+
 ## API Documentation
 
-API documentation for this library can be found at https://feliciss.github.io/icip
+API documentation for this library can be found at <https://feliciss.github.io/icip>
 
 ## License
 
