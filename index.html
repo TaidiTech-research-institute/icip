@@ -2,9 +2,9 @@
 <html><head title="Motoko docs"><meta charset="UTF-8"/><link href="styles.css" rel="stylesheet"/></head><div class="index-container"><h1 class="index-header">Index of modules</h1><ul class="index-listing"><li class="index-item"><a class="index-item-link" href="ICIP1.html">ICIP1</a><div class="index-item-comment"><p>Module translated from <a href="https://github.com/sailfish-app/proposals/blob/master/icip-1.md">ICIP-1</a> code.
 Added some refined classes and functions.</p>
 <p>The ICIP-1 token interface
-Include this library in your code to impliment a token in a canister.</p>
+Include this module in your code to implement a token in a canister.</p>
 <p>Pseudo code:</p>
-<pre class="motoko"><code class="motoko">import ICIP1 &quot;mo:icip/ICIP-1&quot;;
+<pre class="motoko"><code class="motoko">import ICIP1 &quot;mo:icip/ICIP1&quot;;
 
 actor token {
   public query func getBalance(requests: [ICIP1.BalanceRequest]): async ICIP1.BalanceResponse {
@@ -24,5 +24,12 @@ actor token {
   public query func isAuthorized(requests: [ICIP1.IsAuthorizedRequest]): async ICIP1.IsAuthorizedResponse {
     [true]
   };
-};</code></pre><p>Go to ICIPTest.mo to find how to implement this package to your code.</p>
+};</code></pre><p>Go to ICIP1Test.mo to find how to implement this module in your code.</p>
+</div></li><li class="index-item"><a class="index-item-link" href="ICIP2.html">ICIP2</a><div class="index-item-comment"><p>Module interface refered and rewritten from <a href="https://github.com/dfinance-tech/motoko-token">motoko-token</a> code.</p>
+<p>ERC20 style token template for Dfinity
+Include this module in your code to implement an ERC20 style token in a canister.</p>
+<p>Import this module:</p>
+<pre class="motoko"><code class="motoko">import ICIP2 &quot;mo:icip/ICIP2&quot;;</code></pre>
+
+<p>For usage of this module: go to ICIP2Test.mo to find how to implement this module in your code, or refer to <a href="https://github.com/dfinance-tech/motoko-token/blob/master/demo.sh">demo.sh</a>.</p>
 </div></li></ul></div></html>
