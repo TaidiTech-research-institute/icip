@@ -2,11 +2,11 @@
 /// Added some refined classes and functions.
 ///
 /// The ICIP-1 token interface
-/// Include this library in your code to impliment a token in a canister.
+/// Include this module in your code to implement a token in a canister.
 ///
 /// Pseudo code:
 /// ```motoko
-/// import ICIP1 "mo:icip/ICIP-1";
+/// import ICIP1 "mo:icip/ICIP1";
 /// 
 /// actor token {
 ///   public query func getBalance(requests: [ICIP1.BalanceRequest]): async ICIP1.BalanceResponse {
@@ -28,7 +28,7 @@
 ///   };
 /// };
 /// ```
-/// Go to ICIPTest.mo to find how to implement this package to your code.
+/// Go to ICIP1Test.mo to find how to implement this module in your code.
 
 import Hash "mo:base/Hash";
 import Nat32 "mo:base/Nat32";
